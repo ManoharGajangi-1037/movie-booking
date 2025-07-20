@@ -12,7 +12,7 @@ export const createScreen = async ({ name, theaterId }: screenData) => {
     throw new Error("Theater Not Found");
   }
 
-  return prisma.screen.create({
+  return await prisma.screen.create({
     data: {
       name: name,
       theater: {

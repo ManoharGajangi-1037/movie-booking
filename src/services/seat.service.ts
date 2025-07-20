@@ -30,7 +30,7 @@ export const createSeatsBulk = async ({
   });
 
   // Return created seats
-  return prisma.seat.findMany({
+  return await prisma.seat.findMany({
     where: { screenId },
     orderBy: { number: "asc" },
   });

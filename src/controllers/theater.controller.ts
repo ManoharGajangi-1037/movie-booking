@@ -8,7 +8,7 @@ const theaterSchema = z.object({
 export const create = async (req: Request, res: Response) => {
   try {
     const theaterData = theaterSchema.parse(req.body);
-    const theater = createTheater(theaterData);
+    const theater = await createTheater(theaterData);
     res.status(201).json({ theater });
   } catch (error) {
     res.status(400).json({ error: error });
