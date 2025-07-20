@@ -26,3 +26,66 @@ enum Role{
   ADMIN
   CUSTOMER
 }
+
+model Movie{
+  id  String @id @default(uuid())
+  title String
+  description String
+  duration Int
+  language String
+  rating String
+  genre String
+  showtimes Showtime[]
+}
+
+model Theater{
+  id String @id @default(uuid())
+  name String
+  city String
+  screens Screen[]
+}
+
+model Screen{
+  id String @id @default(uuid())
+  name String
+  theatreId String
+  theater Theater @relation(fields:[theatreId],references: [id])
+  seats Seat[]
+  showtimes Showtime[]
+}
+
+model Seat{
+  id String @id @default(uuid())
+  number String
+  screenId String
+  screen Screen @relation(fields: [screenId],references: [id])
+
+  BookingSeat BookingSeat[]
+}
+
+model Showtime{
+  id String @id @default(uuid())
+  movieId String
+  screenId String
+  startTime DateTime
+  movie Movie @relation(fields: [movieId],references: [id])
+  screen Screen @relation(fields: [screenId],references: [id])
+  bookings Booking[]
+}
+
+model Booking{
+  id String @id @default(uuid())
+  userId String
+  showtimeId String
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId],references: [id])
+  showTime Showtime @relation(fields: [showtimeId],references: [id])
+  seats BookingSeat[]
+}
+model BookingSeat{
+  id String @id @default(uuid())
+  bookingId String 
+  seatId String
+  booking Booking @relation(fields: [bookingId],references: [id])
+  seat Seat @relation(fields: [seatId],references: [id])
+}
