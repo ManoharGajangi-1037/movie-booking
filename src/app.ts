@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes";
 import theaterRoutes from "./routes/theater.routes";
 import screenRoutes from "./routes/screen.routes";
+import seatRoutes from "./routes/seat.routes"
 dotenv.config();
 const app = express();
 
@@ -11,5 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", userRoutes);
 app.use("/api", theaterRoutes);
-app.use("/api", screenRoutes);
+app.use("/api/theater", screenRoutes);
+app.use("/api/screens",seatRoutes);
+
 export default app;
